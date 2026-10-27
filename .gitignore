@@ -1,0 +1,20 @@
+
+target/
+dbt_packages/
+logs/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.vscode/
+
+# Local secrets and credentials
+profiles.yml
+seeds/DEPI_data.csv

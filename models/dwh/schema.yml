@@ -1,0 +1,155 @@
+
+version: 2
+
+models:
+  - name: DIMCountry
+    description: "Dimension containing unique countries"
+    columns:
+      - name: country_id
+        description: "Unique identifier for each country"
+        data_tests:
+          - unique
+          - not_null
+      - name: country
+        description: "Country name"
+        data_tests:
+          - not_null
+
+  - name: DIMDepartement
+    description: "Dimension containing unique departments"
+    columns:
+      - name: department_id
+        description: "Unique identifier for each department"
+        data_tests:
+          - unique
+          - not_null
+      - name: department_name
+        description: "Department name"
+        data_tests:
+          - not_null
+
+  - name: DIMGender
+    description: "Dimension containing gender values"
+    columns:
+      - name: gender_id
+        description: "Unique identifier for each gender"
+        data_tests:
+          - unique
+          - not_null
+      - name: gender_name
+        description: "Gender value"
+        data_tests:
+          - not_null
+
+
+  - name: DIMDate
+    description: "Date dimension containing date attributes extracted from employee dates of birth"
+    columns:
+      - name: date_key
+        description: "Integer key in YYYYMMDD format"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: date
+        description: "Calendar date"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: year
+        description: "Year extracted from the date"
+        data_tests:
+          - not_null
+
+      - name: month
+        description: "Month number from 1 to 12"
+        data_tests:
+          - not_null
+
+      - name: day
+        description: "Day number from the date"
+        data_tests:
+          - not_null
+
+      - name: month_name
+        description: "Name of the month"
+
+      - name: day_name
+        description: "Name of the weekday"
+
+
+  - name: DIMEmployee
+    description: "Employee dimension containing cleaned employee attributes"
+    columns:
+      - name: employee_id
+        description: "Unique identifier for each employee"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: first_name
+        description: "Employee first name"
+        data_tests:
+          - not_null
+
+      - name: last_name
+        description: "Employee last name"
+        data_tests:
+          - not_null
+
+      - name: email
+        description: "Employee email address"
+
+      - name: DOB
+        description: "Employee date of birth"
+
+      - name: salary
+        description: "Employee salary"
+
+      - name: department
+        description: "Employee department"
+
+      - name: gender
+        description: "Employee gender"
+
+      - name: country
+        description: "Employee country"
+
+  - name: OBT
+    description: "One Big Table combining employee attributes into a single table"
+    columns:
+      - name: employee_id
+        description: "Unique identifier for each employee"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: full_name
+        description: "Employee full name formatted using a custom macro"
+        data_tests:
+          - not_null
+
+      - name: first_name
+        description: "Employee first name"
+
+      - name: last_name
+        description: "Employee last name"
+
+      - name: email
+        description: "Employee email address"
+
+      - name: gender
+        description: "Employee gender"
+
+      - name: date
+        description: "Employee date of birth"
+
+      - name: salary
+        description: "Employee salary; may be null when missing in the source data"
+
+      - name: department
+        description: "Employee department"
+
+      - name: country
+        description: "Employee country"

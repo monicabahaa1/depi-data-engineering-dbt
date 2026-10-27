@@ -1,0 +1,12 @@
+
+version: 2
+
+sources:
+  - name: source_ods
+    description: "Raw employee data source"
+    database: depi
+    schema: dbo
+
+    tables:
+      - name: DEPI_data
+        description: "Original employee dataset"

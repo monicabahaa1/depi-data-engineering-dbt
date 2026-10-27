@@ -1,0 +1,37 @@
+
+version: 2
+
+models:
+  - name: STGEmployee
+    description: "Staging model for cleaning employee data"
+
+    columns:
+      - name: employee_id
+        description: "Unique identifier for each employee"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: first_name
+        description: "Employee first name"
+
+      - name: last_name
+        description: "Employee last name"
+
+      - name: email
+        description: "Employee email address"
+
+      - name: gender
+        description: "Employee gender"
+
+      - name: DOB
+        description: "Employee date of birth"
+
+      - name: salary
+        description: "Employee salary"
+
+      - name: department
+        description: "Employee department"
+
+      - name: country
+        description: "Employee country"
