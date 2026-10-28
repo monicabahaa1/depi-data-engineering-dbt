@@ -3,35 +3,41 @@ version: 2
 
 models:
   - name: STGEmployee
-    description: "Staging model for cleaning employee data"
+    description: >
+      Staging model that cleans and standardizes employee data
+      from the raw source before it is used in the Data Warehouse.
 
     columns:
       - name: employee_id
-        description: "Unique identifier for each employee"
+        description: >
+          Unique identifier used to identify each employee
+          across the employee dataset.
         data_tests:
           - not_null
           - unique
 
       - name: first_name
-        description: "Employee first name"
+        description: Employee's first name extracted from the source data.
 
       - name: last_name
-        description: "Employee last name"
+        description: Employee's last name extracted from the source data.
 
       - name: email
-        description: "Employee email address"
+        description: Employee's email address used as a contact identifier.
 
       - name: gender
-        description: "Employee gender"
+        description: Employee's gender as recorded in the source data.
 
       - name: DOB
-        description: "Employee date of birth"
+        description: Employee's date of birth.
 
       - name: salary
-        description: "Employee salary"
+        description: >
+          Employee's salary value. The value may be missing
+          in the original source data.
 
       - name: department
-        description: "Employee department"
+        description: Department to which the employee belongs.
 
       - name: country
-        description: "Employee country"
+        description: Country associated with the employee.

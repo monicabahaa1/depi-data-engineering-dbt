@@ -3,153 +3,140 @@ version: 2
 
 models:
   - name: DIMCountry
-    description: "Dimension containing unique countries"
+    description: >
+      Country dimension containing distinct countries
+      extracted from employee source data.
     columns:
       - name: country_id
-        description: "Unique identifier for each country"
+        description: Unique identifier assigned to each country.
         data_tests:
           - unique
           - not_null
       - name: country
-        description: "Country name"
+        description: Country name associated with an employee record.
         data_tests:
           - not_null
 
   - name: DIMDepartement
-    description: "Dimension containing unique departments"
+    description: >
+      Department dimension containing distinct departments
+      represented in the employee dataset.
     columns:
       - name: department_id
-        description: "Unique identifier for each department"
+        description: Unique identifier assigned to each department.
         data_tests:
           - unique
           - not_null
       - name: department_name
-        description: "Department name"
+        description: Name of the employee department.
         data_tests:
           - not_null
 
   - name: DIMGender
-    description: "Dimension containing gender values"
+    description: >
+      Gender dimension containing distinct gender values
+      recorded in the source data.
     columns:
       - name: gender_id
-        description: "Unique identifier for each gender"
+        description: Unique identifier assigned to each gender value.
         data_tests:
           - unique
           - not_null
       - name: gender_name
-        description: "Gender value"
+        description: Gender value recorded in the source data.
         data_tests:
           - not_null
-
 
   - name: DIMDate
-    description: "Date dimension containing date attributes extracted from employee dates of birth"
+    description: >
+      Date dimension containing calendar attributes derived
+      from employee dates of birth.
     columns:
       - name: date_key
-        description: "Integer key in YYYYMMDD format"
+        description: Integer date key formatted as YYYYMMDD.
         data_tests:
           - unique
           - not_null
-
       - name: date
-        description: "Calendar date"
+        description: Calendar date derived from the source date of birth.
         data_tests:
           - unique
           - not_null
-
       - name: year
-        description: "Year extracted from the date"
+        description: Four-digit year extracted from the calendar date.
         data_tests:
           - not_null
-
       - name: month
-        description: "Month number from 1 to 12"
+        description: Numeric month value ranging from 1 to 12.
         data_tests:
           - not_null
-
       - name: day
-        description: "Day number from the date"
+        description: Day of the month extracted from the calendar date.
         data_tests:
           - not_null
-
       - name: month_name
-        description: "Name of the month"
-
+        description: Full month name associated with the calendar date.
       - name: day_name
-        description: "Name of the weekday"
-
+        description: Weekday name associated with the calendar date.
 
   - name: DIMEmployee
-    description: "Employee dimension containing cleaned employee attributes"
+    description: >
+      Employee dimension containing employee identifiers and
+      cleaned descriptive attributes from the source dataset.
     columns:
       - name: employee_id
-        description: "Unique identifier for each employee"
+        description: Unique identifier for each employee.
         data_tests:
           - unique
           - not_null
-
       - name: first_name
-        description: "Employee first name"
+        description: Employee's first name.
         data_tests:
           - not_null
-
       - name: last_name
-        description: "Employee last name"
+        description: Employee's last name.
         data_tests:
           - not_null
-
       - name: email
-        description: "Employee email address"
-
+        description: Employee's email address as recorded in the source.
       - name: DOB
-        description: "Employee date of birth"
-
+        description: Employee's date of birth.
       - name: salary
-        description: "Employee salary"
-
+        description: Employee's salary; may be null when missing in the source.
       - name: department
-        description: "Employee department"
-
+        description: Department associated with the employee.
       - name: gender
-        description: "Employee gender"
-
+        description: Gender value associated with the employee.
       - name: country
-        description: "Employee country"
+        description: Country associated with the employee.
 
   - name: OBT
-    description: "One Big Table combining employee attributes into a single table"
+    description: >
+      One Big Table combining employee attributes into a single
+      denormalized model for convenient querying and analysis.
     columns:
       - name: employee_id
-        description: "Unique identifier for each employee"
+        description: Unique identifier for each employee.
         data_tests:
           - unique
           - not_null
-
       - name: full_name
-        description: "Employee full name formatted using a custom macro"
+        description: Employee's full name generated using the custom capitalize_name macro.
         data_tests:
           - not_null
-
       - name: first_name
-        description: "Employee first name"
-
+        description: Employee's first name.
       - name: last_name
-        description: "Employee last name"
-
+        description: Employee's last name.
       - name: email
-        description: "Employee email address"
-
+        description: Employee's email address as recorded in the source.
       - name: gender
-        description: "Employee gender"
-
+        description: Employee's gender value.
       - name: date
-        description: "Employee date of birth"
-
+        description: Employee's date of birth converted to a date value.
       - name: salary
-        description: "Employee salary; may be null when missing in the source data"
-
+        description: Employee's salary; may be null when missing or invalid in the source.
       - name: department
-        description: "Employee department"
-
+        description: Department associated with the employee.
       - name: country
-        description: "Employee country"
+        description: Country associated with the employee.
