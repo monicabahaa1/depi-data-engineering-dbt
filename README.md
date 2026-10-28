@@ -1,25 +1,109 @@
-# Data Warehouse Project Using dbt
+# DEPI Data Engineering Project — dbt
 
-A Data Engineering project developed as part of the **Digital Egypt Pioneers Initiative (DEPI)**. The project uses dbt Core and Microsoft SQL Server to transform raw employee data into structured staging and data warehouse models.
+A Data Engineering project built as part of the Digital Egypt Pioneers Initiative (DEPI), implementing **Staging and Data Warehouse (DWH) layers** using dbt and SQL Server.
 
 ## Project Overview
 
-This project demonstrates a data transformation workflow using dbt, including data cleaning, staging models, dimension tables, a fact model, data quality testing, reusable macros, and project documentation.
-
-The main objective is to organize employee data into a maintainable structure that supports data analysis and reporting.
+This project transforms raw employee data into structured, reusable data models. It demonstrates data cleaning, transformation, testing, documentation, and modular SQL development with dbt.
 
 ## Architecture
 
-The project follows this workflow:
+The project follows a layered approach:
 
-**Source Data → Staging Layer → DWH Layer**
+- **Source / ODS:** Raw employee data stored in SQL Server.
+- **Staging Layer:** Cleans and prepares source data for downstream transformations, including individual staging models and `STG_OBT`.
+- **DWH Layer:** Builds dimension models and a fact model for analytics. `FACTEmployee` uses `STG_OBT` and joins the dimension models to retrieve their corresponding keys.
 
-- **Source Layer:** Raw employee data stored in SQL Server.
-- **Staging Layer:** Cleans, standardizes, and transforms the source data.
-- **DWH Layer:** Organizes data into dimension models and a fact model.
+## Project Structure
 
-### Data Lineage
+```text
+models/
+├── staging/
+│   ├── STG_DIMCountry.sql
+│   ├── STG_DIMDate.sql
+│   ├── STG_DIMDepartement.sql
+│   ├── STG_DIMEmployee.sql
+│   ├── STG_DIMGender.sql
+│   ├── STG_OBT.sql
+│   ├── schema.yml
+│   └── sources.yml
+└── dwh/
+    ├── DIMCountry.sql
+    ├── DIMDate.sql
+    ├── DIMDepartement.sql
+    ├── DIMEmployee.sql
+    ├── DIMGender.sql
+    ├── FACTEmployee.sql
+    └── schema.yml
 
-The `STG_OBT` model provides consolidated employee data to `FACTEmployee`.
+macros/
+└── capitalize_name.sql
 
-The fact model joins the staging data with the following dimension models to retrieve their corresponding keys
+tests/
+├── assert_email_not_null.sql
+└── assert_non_negative_salary.sql
+```
+
+## Key Features
+
+- Separate schema YAML files for the Staging and DWH layers.
+- Source definitions using dbt sources.
+- Reusable SQL transformations for data cleaning and standardization.
+- Dimension models for employee, country, gender, department, and date data.
+- A `STG_OBT` model that consolidates employee data for downstream transformations.
+- A `FACTEmployee` model that joins `STG_OBT` with dimension models using `LEFT JOIN`.
+- Singular SQL tests for email validation and non-negative salary checks.
+- Generic tests configured in schema YAML files, where defined.
+- A custom macro for formatting employee full names.
+- Model and column documentation for dbt Docs.
+
+## Tech Stack
+
+- dbt Core
+- Microsoft SQL Server
+- T-SQL
+- YAML
+- Python
+- Git and GitHub
+
+## Running the Project
+
+1. Configure your SQL Server connection in your local dbt profile.
+2. Install any required dbt dependencies.
+3. Parse the project:
+
+   ```bash
+   dbt parse
+   ```
+
+4. Run the models:
+
+   ```bash
+   dbt run
+   ```
+
+5. Run data quality tests:
+
+   ```bash
+   dbt test
+   ```
+
+6. Generate and serve the documentation locally:
+
+   ```bash
+   dbt docs generate
+   dbt docs serve
+   ```
+
+## Author
+
+**Monica Bahaa**
+
+Software Engineering Student | Data Engineering Trainee at DEPI
+
+- GitHub: [https://github.com/monicabahaa1](https://github.com/monicabahaa1)
+- LinkedIn: [https://www.linkedin.com/in/monica-bahaa](https://www.linkedin.com/in/monica-bahaa)
+
+---
+
+*Developed as part of the Digital Egypt Pioneers Initiative (DEPI).*
