@@ -9,4 +9,4 @@ SELECT DISTINCT
     salary,
     department,
     country
-FROM {{ ref("STGEmployee") }}
+FROM {{ source("source_ods", "DEPI_data") }}

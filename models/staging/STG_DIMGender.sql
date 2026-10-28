@@ -1,7 +1,7 @@
 
 SELECT DISTINCT
     gender
-FROM {{ ref("STGEmployee") }}
+FROM {{ source("source_ods", "DEPI_data") }}
 WHERE gender IS NOT NULL
     AND TRIM(gender) <> ''
 

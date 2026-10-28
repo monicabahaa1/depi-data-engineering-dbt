@@ -1,6 +1,6 @@
 
 SELECT DISTINCT
     department
-FROM {{ ref("STGEmployee") }}
+FROM {{ source("source_ods", "DEPI_data") }}
 WHERE department IS NOT NULL
     AND TRIM(department) <> ''

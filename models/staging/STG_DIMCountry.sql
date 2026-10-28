@@ -1,6 +1,6 @@
 
 SELECT DISTINCT
     country
-FROM {{ ref("STGEmployee") }}
+FROM {{ source("source_ods", "DEPI_data") }}
 WHERE country IS NOT NULL
     AND TRIM(country) <> ''
