@@ -5,7 +5,7 @@ models:
   - name: DIMCountry
     description: >
       Country dimension containing distinct countries
-      extracted from employee source data.
+      from the staging layer.
     columns:
       - name: country_id
         description: Unique identifier assigned to each country.
@@ -13,14 +13,14 @@ models:
           - unique
           - not_null
       - name: country
-        description: Country name associated with an employee record.
+        description: Country name.
         data_tests:
           - not_null
 
   - name: DIMDepartement
     description: >
       Department dimension containing distinct departments
-      represented in the employee dataset.
+      from the staging layer.
     columns:
       - name: department_id
         description: Unique identifier assigned to each department.
@@ -28,22 +28,22 @@ models:
           - unique
           - not_null
       - name: department_name
-        description: Name of the employee department.
+        description: Department name.
         data_tests:
           - not_null
 
   - name: DIMGender
     description: >
       Gender dimension containing distinct gender values
-      recorded in the source data.
+      from the staging layer.
     columns:
       - name: gender_id
-        description: Unique identifier assigned to each gender value.
+        description: Unique identifier assigned to each gender.
         data_tests:
           - unique
           - not_null
       - name: gender_name
-        description: Gender value recorded in the source data.
+        description: Gender value.
         data_tests:
           - not_null
 
@@ -58,31 +58,31 @@ models:
           - unique
           - not_null
       - name: date
-        description: Calendar date derived from the source date of birth.
+        description: Calendar date derived from employee DOB.
         data_tests:
           - unique
           - not_null
       - name: year
-        description: Four-digit year extracted from the calendar date.
+        description: Four-digit year.
         data_tests:
           - not_null
       - name: month
-        description: Numeric month value ranging from 1 to 12.
+        description: Numeric month from 1 to 12.
         data_tests:
           - not_null
       - name: day
-        description: Day of the month extracted from the calendar date.
+        description: Day of the month.
         data_tests:
           - not_null
       - name: month_name
-        description: Full month name associated with the calendar date.
+        description: Full month name.
       - name: day_name
-        description: Weekday name associated with the calendar date.
+        description: Weekday name.
 
   - name: DIMEmployee
     description: >
-      Employee dimension containing employee identifiers and
-      cleaned descriptive attributes from the source dataset.
+      Employee dimension containing cleaned descriptive attributes
+      from the staging layer.
     columns:
       - name: employee_id
         description: Unique identifier for each employee.
@@ -90,53 +90,49 @@ models:
           - unique
           - not_null
       - name: first_name
-        description: Employee's first name.
+        description: Employee first name.
         data_tests:
           - not_null
       - name: last_name
-        description: Employee's last name.
+        description: Employee last name.
         data_tests:
           - not_null
       - name: email
-        description: Employee's email address as recorded in the source.
-      - name: DOB
-        description: Employee's date of birth.
-      - name: salary
-        description: Employee's salary; may be null when missing in the source.
-      - name: department
-        description: Department associated with the employee.
+        description: Employee email address.
       - name: gender
-        description: Gender value associated with the employee.
+        description: Employee gender.
+      - name: DOB
+        description: Employee date of birth.
+      - name: salary
+        description: Employee salary; may be null.
+      - name: department
+        description: Employee department.
       - name: country
-        description: Country associated with the employee.
+        description: Employee country.
 
-  - name: OBT
+  - name: FACTEmployee
     description: >
-      One Big Table combining employee attributes into a single
-      denormalized model for convenient querying and analysis.
+      Employee fact model built from the staging OBT,
+      containing employee attributes for analysis.
     columns:
       - name: employee_id
-        description: Unique identifier for each employee.
+        description: Employee identifier at the grain of one row per employee.
         data_tests:
           - unique
           - not_null
       - name: full_name
-        description: Employee's full name generated using the custom capitalize_name macro.
+        description: Employee full name generated by the capitalize_name macro.
         data_tests:
           - not_null
-      - name: first_name
-        description: Employee's first name.
-      - name: last_name
-        description: Employee's last name.
       - name: email
-        description: Employee's email address as recorded in the source.
+        description: Employee email address.
       - name: gender
-        description: Employee's gender value.
-      - name: date
-        description: Employee's date of birth converted to a date value.
+        description: Employee gender.
+      - name: DOB
+        description: Employee date of birth.
       - name: salary
-        description: Employee's salary; may be null when missing or invalid in the source.
+        description: Employee salary; may be null.
       - name: department
-        description: Department associated with the employee.
+        description: Employee department.
       - name: country
-        description: Country associated with the employee.
+        description: Employee country.

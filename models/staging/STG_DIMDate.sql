@@ -1,0 +1,6 @@
+
+SELECT DISTINCT
+    DOB AS date
+FROM {{ ref("STGEmployee") }}
+WHERE DOB IS NOT NULL
+
