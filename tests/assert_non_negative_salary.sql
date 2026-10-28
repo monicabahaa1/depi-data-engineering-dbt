@@ -2,5 +2,5 @@
 SELECT
     employee_id,
     salary
-FROM {{ ref("STGEmployee") }}
+FROM {{ ref("STG_OBT") }}
 WHERE salary < 0
